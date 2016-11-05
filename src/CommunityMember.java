@@ -1,17 +1,18 @@
-import java.util.Date;
-
-public abstract class CommunityMember implements IRightsAndDuties{
+ abstract class CommunityMember implements IRightsAndDuties{
     private String id;
     private Gender gender;
     private String name;
     private String address;
-    private Date birthday;
+    private String birthday;
     private double weeklyToraStudyingHours;
     private double weeklyWorkHours;
     private double income;
     private Volunteering volunteering;
 
-    public CommunityMember(String id, Gender gender, String name, String address, Date birthday,
+     CommunityMember() {
+    }
+
+     CommunityMember(String id, Gender gender, String name, String address, String birthday,
                            double weeklyToraStudyingHours, double weeklyWorkHours, double income,
                            Volunteering volunteering) throws Exception{
         this.id = id;
@@ -34,75 +35,75 @@ public abstract class CommunityMember implements IRightsAndDuties{
         return ACTIVE_DAYS_IN_WEEK * HOURS_IN_DAY;
     }
 
-    public Volunteering getVolunteeringType() {
+     Volunteering getVolunteeringType() {
         return volunteering;
     }
 
-    public void setVolunteering(Volunteering volunteering) {
+     void setVolunteering(Volunteering volunteering) {
         this.volunteering = volunteering;
     }
 
-    public double getIncome() {
+     double getIncome() {
         return income;
     }
 
-    public void setIncome(double income) {
+     void setIncome(double income) {
         this.income = income;
     }
 
-    public double getWeeklyWorkHours() {
+     double getWeeklyWorkHours() {
         return weeklyWorkHours;
     }
 
-    public void setWeeklyWorkHours(double weeklyWorkHours) {
+     void setWeeklyWorkHours(double weeklyWorkHours) {
         this.weeklyWorkHours = weeklyWorkHours;
     }
 
-    public double getWeeklyToraStudyingHours() {
+     double getWeeklyToraStudyingHours() {
         return weeklyToraStudyingHours;
     }
 
-    public void setWeeklyToraStudyingHours(double weeklyToraStudyingHours) {
+     void setWeeklyToraStudyingHours(double weeklyToraStudyingHours) {
         this.weeklyToraStudyingHours = weeklyToraStudyingHours;
     }
 
-    public Date getBirthday() {
+     String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+     void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public String getAddress() {
+     String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+     void setAddress(String address) {
         this.address = address;
     }
 
-    public String getName() {
+     String getName() {
         return name;
     }
 
-    public void setName(String name) {
+     void setName(String name) {
         this.name = name;
     }
 
-    public Gender getGender() {
+     Gender getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+     void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    public String getId() {
+     String getId() {
         return id;
     }
 
-    public void setId(String id) {
+     void setId(String id) {
         this.id = id;
     }
 }

@@ -1,5 +1,5 @@
 
-public enum Volunteering {
+ enum Volunteering {
     SPIRITUAL,
     PHYSICAL,
     MUSICAL

@@ -1,33 +1,36 @@
-import java.util.Date;
-
-public class Single extends CommunityMember{
+ class Single extends CommunityMember{
     private double studyingYears;
-    private boolean isLeaveWithParents;
+    private boolean isLiveWithParents;
 
-    public Single(double studyingYears, boolean isLeaveWithParents,
-                  String id, Gender gender, String name, String address, Date birthday,
+     Single(double studyingYears, boolean isLeaveWithParents,
+                  String id, Gender gender, String name, String address, String birthday,
                   double weeklyToraStudyingHours, double weeklyWorkHours, double income,
                   Volunteering volunteering) throws Exception {
         super(id, gender, name, address, birthday, weeklyToraStudyingHours,
                 weeklyWorkHours, income, volunteering);
         this.studyingYears = studyingYears;
-        this.isLeaveWithParents = isLeaveWithParents;
+        this.isLiveWithParents = isLeaveWithParents;
     }
 
-    public double getStudyingYears() {
+     Single(double studyingYears, boolean isLiveWithParents) {
+        this.studyingYears = studyingYears;
+        this.isLiveWithParents = isLiveWithParents;
+    }
+
+     double getStudyingYears() {
         return studyingYears;
     }
 
-    public void setStudyingYears(double studyingYears) {
+     void setStudyingYears(double studyingYears) {
         this.studyingYears = studyingYears;
     }
 
-    public boolean isLeaveWithParents() {
-        return isLeaveWithParents;
+     boolean isLiveWithParents() {
+        return isLiveWithParents;
     }
 
-    public void setLeaveWithParents(boolean leaveWithParents) {
-        isLeaveWithParents = leaveWithParents;
+     void setLiveWithParents(boolean liveWithParents) {
+        isLiveWithParents = liveWithParents;
     }
 
     @Override

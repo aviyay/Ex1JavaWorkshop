@@ -1,19 +1,22 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-public class Community {
-    ArrayList<CommunityMember> communityMembers;
-    double fund;
+ class Community {
+    private ArrayList<CommunityMember> communityMembers;
+    private double fund;
 
-    public Community() {
+     Community() {
         communityMembers = new ArrayList<>();
         fund = 0;
     }
 
-    public void addCommunityMember(CommunityMember communityMember) {
+     void addCommunityMember(CommunityMember communityMember) {
         communityMembers.add(communityMember);
     }
 
-    public double calcuateTotalTax() {
+     double calcuateTotalTax() {
         double result = 0;
 
         for (CommunityMember member : communityMembers) {
@@ -23,22 +26,32 @@ public class Community {
         return result;
     }
 
-    public double requestScholarhipFor(CommunityMember member) {
-        return member.getScholarship();
+     double requestScholarhipFor(String memberName) throws Exception {
+        List<CommunityMember> chosenMember = communityMembers.stream().
+                filter(member -> memberName.equals(member.getName()))
+                .collect(Collectors.toList());
+
+        if (chosenMember.size() == 0)
+            throw new Exception("Member doesn't exist");
+
+        return chosenMember.get(0).getScholarship();
     }
 
-    public ArrayList<Double> getMembersVolunteeringHoursSortedByType() {
-        ArrayList<CommunityMember> sortedMembers = (ArrayList<CommunityMember>) communityMembers.clone();
-        sortedMembers.sort((member1, member2) ->
-                member1.getVolunteeringType().compareTo(member2.getVolunteeringType())
+     ArrayList<MemberVolunteeringHoursDTO> getMembersVolunteeringHoursSortedByType() {
+        ArrayList<MemberVolunteeringHoursDTO> result = communityMembers.stream()
+                .map(member -> new MemberVolunteeringHoursDTO(member.getName(),
+                        member.getRecommendedVolunteeringHours(),
+                        member.getVolunteeringType()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        result.sort((member1, member2) ->
+                member1.volunteeringType.compareTo(member2.volunteeringType)
         );
 
-        ArrayList<Double> result = new ArrayList<>();
-
-        for (CommunityMember member :
-                sortedMembers) {
-            result.add((member.getRecommendedVolunteeringHours()));
-        }
         return result;
+    }
+
+     ArrayList<CommunityMember> getCommunityMembers() {
+        return communityMembers;
     }
 }
