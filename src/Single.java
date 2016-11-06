@@ -34,7 +34,7 @@
 
     @Override
     public double getTax() {
-        return 500;
+        return getWeeklyWorkHours() == 0? 0 : 500;
     }
 
     @Override

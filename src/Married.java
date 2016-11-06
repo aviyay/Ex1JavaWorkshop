@@ -34,7 +34,7 @@ class Married extends CommunityMember {
 
     @Override
     public double getTax() {
-        return 800;
+        return getWeeklyWorkHours() == 0? 0 : 800;
     }
 
     @Override
