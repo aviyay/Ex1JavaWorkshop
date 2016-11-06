@@ -1,20 +1,25 @@
 import java.util.*;
 
- class Program {
-     static void main(String[] args) {
+class Program {
+    public static void main(String[] args) {
         Community community = new Community();
         boolean exit = false;
         Scanner scanner = new Scanner(System.in);
 
-        addMembers(community);
+        try {
+            addMembers(community);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         do {
             System.out.println("Choose action:");
             System.out.println("0 - Exit");
-            System.out.println("1 - Calculate total tax");
-            System.out.println("2 - List all the members' names");
-            System.out.println("3 - Request scholarship");
-            System.out.println("4 - Print all members and their volunteering hours");
+            System.out.println("1 - Charge total tax");
+            System.out.println("2 - Print current fund");
+            System.out.println("3 - List all members");
+            System.out.println("4 - Request scholarship");
+            System.out.println("5 - Print all members and their volunteering hours");
 
             try {
                 switch (scanner.nextInt()) {
@@ -22,20 +27,25 @@ import java.util.*;
                         exit = true;
                         break;
                     case 1:
-                        System.out.println("Total tax is " + community.calcuateTotalTax());
+                        double totalTax = community.calcuateTotalTax();
+                        System.out.println("Total tax charged is " + totalTax);
+                        community.addToFund(totalTax);
                         break;
                     case 2:
-                        for (CommunityMember member : community.getCommunityMembers()) {
-                            System.out.println(member.getName());
-                        }
+                        System.out.println("Current fund is " + community.getFund());
                         break;
                     case 3:
+                        for (CommunityMember member : community.getCommunityMembers()) {
+                            System.out.println(member+"--------------------------------");
+                        }
+                        break;
+                    case 4:
                         scanner.nextLine();
                         System.out.print("Enter member's name: ");
                         System.out.println("Approved scholarship: " +
-                                community.requestScholarhipFor(scanner.nextLine()));
+                                community.requestScholarshipFor(scanner.nextLine()));
                         break;
-                    case 4:
+                    case 5:
                         for (MemberVolunteeringHoursDTO i : community.getMembersVolunteeringHoursSortedByType())
                             System.out.println(i.memberName + ": " + i.volunteeringHours + ", Type: " + i.volunteeringType);
                         break;
@@ -48,21 +58,23 @@ import java.util.*;
         } while (!exit);
     }
 
-    private static void addMembers(Community community) {
+    private static void addMembers(Community community) throws Exception {
         List<String> names = Arrays.asList("Shilo", "Shy", "Oshrit", "Aviya", "Ezra", "Ori", "Shoshana", "Yakir");
 
         for (int i = 0; i < names.size(); ++i) {
             CommunityMember member;
 
             if (i % 2 == 1) {
-                Single temp = new Single(i, false);
+                Single temp = new Single(5 * 8 + i,5 * 8 - i);
+                temp.setStudyingYears(i);
+                temp.setLiveWithParents((i-1)%4 == 0);
                 temp.setLiveWithParents(false);
                 temp.setStudyingYears(i);
                 member = temp;
             } else {
-                Married temp = new Married();
+                Married temp = new Married(5 * 8 + i,5 * 8 - i);
                 temp.setPartnerId((i + (i % 4 == 0 ? 2 : -2)) + "123456789");
-                temp.setNumberOfChildrenUnderage(i);
+                temp.setNumberOfChildrenUnderage((i + (i % 4 == 0 ? 1 : -1)));
                 member = temp;
             }
 
@@ -84,9 +96,6 @@ import java.util.*;
                     member.setVolunteering(Volunteering.SPIRITUAL);
                     break;
             }
-
-            member.setWeeklyToraStudyingHours(5 * 8 + i);
-            member.setWeeklyWorkHours(5 * 8 - i);
 
             community.addCommunityMember(member);
         }

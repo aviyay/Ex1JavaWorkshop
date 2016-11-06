@@ -12,11 +12,11 @@ class Married extends CommunityMember {
         this.numberOfChildrenUnderage = numberOfChildrenUnderage;
     }
 
-    Married() {
-
+    public Married(double weeklyToraStudyingHours, double weeklyWorkHours) throws Exception {
+        super(weeklyToraStudyingHours, weeklyWorkHours);
     }
 
-     int getNumberOfChildrenUnderage() {
+    int getNumberOfChildrenUnderage() {
         return numberOfChildrenUnderage;
     }
 
@@ -45,5 +45,17 @@ class Married extends CommunityMember {
     @Override
     public double getRecommendedVolunteeringHours() {
         return 4;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder(super.toString());
+
+        result.append("Partner ID:" + getPartnerId());
+        result.append("\n");
+        result.append("Number of children underage:" + getNumberOfChildrenUnderage());
+        result.append("\n");
+
+        return result.toString();
     }
 }

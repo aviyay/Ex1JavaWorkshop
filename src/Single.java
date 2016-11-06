@@ -12,10 +12,9 @@
         this.isLiveWithParents = isLeaveWithParents;
     }
 
-     Single(double studyingYears, boolean isLiveWithParents) {
-        this.studyingYears = studyingYears;
-        this.isLiveWithParents = isLiveWithParents;
-    }
+     Single(double weeklyToraStudyingHours, double weeklyWorkHours) throws Exception {
+         super(weeklyToraStudyingHours, weeklyWorkHours);
+     }
 
      double getStudyingYears() {
         return studyingYears;
@@ -47,4 +46,16 @@
     public double getRecommendedVolunteeringHours() {
         return 10;
     }
+
+     @Override
+     public String toString() {
+         StringBuilder result = new StringBuilder(super.toString());
+
+         result.append("Is Live with parents: " + isLiveWithParents());
+         result.append("\n");
+         result.append("Number of studying years: " + getStudyingYears());
+         result.append("\n");
+
+         return result.toString();
+     }
 }
